@@ -43,6 +43,9 @@ public class TaskEntity {
     @Column(name = "end_date")
     private Date endDate;
 
+    @Column(name = "status", length = 20, nullable = false)
+    private String status;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
@@ -57,5 +60,5 @@ public class TaskEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userEntity;
+    private UserEntity user;
 }
