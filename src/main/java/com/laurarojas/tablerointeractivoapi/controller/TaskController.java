@@ -53,4 +53,10 @@ public class TaskController {
         ResponseMessageDTO response = taskService.updateTaskStatus(taskId, updateTaskStatusDTO);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/board/{boardName}")
+    public ResponseEntity<List<TaskWithProjectInfoDTO>> getTasksByBoardName(@PathVariable String boardName) {
+        List<TaskWithProjectInfoDTO> tasks = taskService.getTasksByBoardName(boardName);
+        return ResponseEntity.ok(tasks);
+    }
 }

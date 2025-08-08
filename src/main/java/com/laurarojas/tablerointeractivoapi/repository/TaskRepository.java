@@ -18,4 +18,9 @@ public interface TaskRepository extends JpaRepository<TaskEntity, String> {
            "JOIN b.project p " +
            "WHERE p.name = :projectName")
     List<TaskEntity> findTasksByProjectName(@Param("projectName") String projectName);
+
+    @Query("SELECT t FROM TaskEntity t " +
+            "JOIN t.board b " +
+            "WHERE b.name = :boardName")
+    List<TaskEntity> findTasksByBoardName(@Param("boardName") String boardName);
 }
