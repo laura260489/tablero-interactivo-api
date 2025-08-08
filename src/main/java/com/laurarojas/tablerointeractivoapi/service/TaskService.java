@@ -119,6 +119,22 @@ public class TaskService {
         return new ResponseMessageDTO("Estado de la tarea actualizado exitosamente", HttpStatus.OK.value());
     }
 
+    public List<TaskWithProjectInfoDTO> getTasksByBoardName(String boardName) {
+        List<TaskEntity> tasks = taskRepository.findTasksByBoardName(boardName);
+
+        if (tasks.isEmpty()) {
+            throw new ApiException(
+                    String.format("No se encontraron tareas para el tablero: %s", boardName),
+                    HttpStatus.NOT_FOUND.value(),
+                    HttpStatus.NOT_FOUND.getReasonPhrase()
+            );
+        }
+
+        return tasks.stream()
+                .map(this::convertToTaskWithProjectInfoDTO)
+                .collect(Collectors.toList());
+    }
+
     public TaskWithProjectInfoDTO getTaskById(String taskId) {
         TaskEntity task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ApiException(
